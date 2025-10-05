@@ -32,6 +32,12 @@ public class ManajemenCustomerController {
     @FXML
     private Button btnTambahCustomer;
 
+    @FXML
+    private Button btnEditCustomer;
+
+    @FXML
+    private Button btnHapusCustomer;
+
     private ObservableList<Customer> customerData = FXCollections.observableArrayList();
 
     @FXML
@@ -45,8 +51,9 @@ public class ManajemenCustomerController {
         tableCustomer.setItems(customerData);
 
         btnTambahCustomer.setOnAction(e -> openAddCustomerWindow());
+        btnEditCustomer.setOnAction(e -> openEditCustomerWindow());
+        btnHapusCustomer.setOnAction(e -> hapusCustomer());
     }
-
 
     private void openAddCustomerWindow() {
         try {
@@ -66,6 +73,60 @@ public class ManajemenCustomerController {
             showAlert("Error membuka form Add Customer!");
         }
     }
+
+    private void openEditCustomerWindow() {
+        Customer selected = tableCustomer.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            showAlert("Pilih Customer yang ingin diedit!");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditCustomer.fxml"));
+            Parent root = loader.load();
+
+            EditCustomerController controller = loader.getController();
+            controller.setCustomerData(selected, this);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Edit Customer");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Gagal membuka form Edit Customer!");
+        }
+    }
+
+
+    private void hapusCustomer() {
+        Customer selected = tableCustomer.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            showAlert("Pilih customer yang ingin dihapus!");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Konfirmasi Hapus");
+        alert.setHeaderText(null);
+        alert.setContentText("Apakah Anda yakin ingin menghapus data customer ini?");
+
+        ButtonType yesButton = new ButtonType("Ya", ButtonBar.ButtonData.YES);
+        ButtonType noButton = new ButtonType("Tidak", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == yesButton) {
+                customerData.remove(selected);
+            }
+
+        });
+    }
+
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(null);
@@ -74,12 +135,16 @@ public class ManajemenCustomerController {
     }
 
     public void addCustomer(Customer customer) {
-        for(Customer c : customerData) {
-            if(c.getId().equals(customer.getId())) {
+        for (Customer c : customerData) {
+            if (c.getId().equals(customer.getId())) {
                 showAlert("ID customer sudah ada");
                 return;
             }
         }
         customerData.add(customer);
+    }
+
+    public void refreshTable() {
+        tableCustomer.refresh();
     }
 }
