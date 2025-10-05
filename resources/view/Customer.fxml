@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gudang.controller.ManajemenCustomerController">
+    <children>
+        <Label alignment="TOP_CENTER" layoutY="2.0" prefHeight="23.0" prefWidth="600.0" text="Manajemen Customer" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="tableCustomer" layoutX="9.0" layoutY="25.0" prefHeight="334.0" prefWidth="582.0">
+            <columns>
+                <TableColumn fx:id="idColumnCustomer" prefWidth="110.0" text="Id" />
+                <TableColumn fx:id="namaColumnCustomer" prefWidth="159.0" text="Nama" />
+                <TableColumn fx:id="emailColumnCustomer" prefWidth="174.0" text="Email" />
+                <TableColumn fx:id="teleponColumnCustomer" prefWidth="139.0" text="Telepon" />
+            </columns>
+        </TableView>
+
+        <Button fx:id="btnTambahCustomer" layoutX="9.0" layoutY="370.0" mnemonicParsing="false" text="Tambah Customer" />
+        <Button fx:id="btnEditCustomer" layoutX="132.0" layoutY="370.0" mnemonicParsing="false" text="Edit Customer" />
+        <Button fx:id="btnHapusCustomer" layoutX="231.0" layoutY="370.0" mnemonicParsing="false" text="Hapus Customer" />
+    </children>
+</AnchorPane>

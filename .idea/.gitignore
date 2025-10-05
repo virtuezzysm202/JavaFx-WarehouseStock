@@ -1,0 +1,33 @@
+.idea/
+*.iml
+*.iws
+*.ipr
+
+/out/
+/*.class
+
+
+/bin/
+/build/
+
+
+*.log
+
+.DS_Store
+Thumbs.db
+
+
+*.jar
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.bak
+
+# Ignore Maven/Gradle caches (jika menggunakan)
+target/
+.gradle/
+build/
+
+# Ignore environment files
+*.env
